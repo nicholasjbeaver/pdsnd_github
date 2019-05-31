@@ -96,6 +96,7 @@ def time_stats(df):
     most_common_month: most popular month in dataset based on mode
     most_common_day: most popular day of week based on mode
     most_common_hour: most popular rental hour based on mode
+    mean_hour: average start hour for all users
 
     """
     months = ['January', 'February', 'March', 'April', 'May', 'June']
@@ -115,6 +116,10 @@ def time_stats(df):
     # display the most common start hour
     most_common_hour = (df['Start Time'].dt.hour).mode()[0]
     print('Most common hour: ', most_common_hour)
+
+    # display the average start hour
+    mean_hour = (df['Start Time'].dt.hour).mean()
+    print('Average start hour: ', mean_hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -177,7 +182,7 @@ def trip_duration_stats(df):
     Returns:
     total_travel_time: total time travelled among all users
     mean_travel_time: average trip duration for all users
-    median_travel_time: median trip duration 
+    median_travel_time: median trip duration
 
     """
 
