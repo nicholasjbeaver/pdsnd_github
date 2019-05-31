@@ -72,13 +72,13 @@ def load_data(city, month, day):
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
 
-    #filtering by month if neccesary
+    # filtering by month if neccesary
     if month != 'All':
         month = months.index(month) + 1
         df = df[df['month'] == month]
 
 
-    #filtering by day if neccesary
+    # filtering by day if neccesary
     if day != 'All':
         df = df[df['day_of_week']== day]
 
@@ -115,19 +115,19 @@ def station_stats(df):
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-    # TO DO: display most commonly used start station
+    # display most commonly used start station
     # creating pd series based on station name and how many times it is used
     start_station_counts = df['Start Station'].value_counts()
     # pd series using value counts defaults to descending order, first item in list will be max used
     most_used_start = start_station_counts.index[0]
     print('Most used start station: ', most_used_start, '-> Total uses: ', start_station_counts.max())
 
-    # TO DO: display most commonly used end station (same method as start station)
+    # display most commonly used end station (same method as start station)
     end_station_counts = df['End Station'].value_counts()
     most_used_end = end_station_counts.index[0]
     print('Most used end station: ', most_used_end, '-> Total uses: ', end_station_counts.max())
 
-    # TO DO: display most frequent combination of start station and end station trip
+    # display most frequent combination of start station and end station trip
     # create pd series of start and end stations
     start_stations = df['Start Station']
     end_stations = df['End Station']
@@ -151,11 +151,11 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # TO DO: display total travel time
+    # display total travel time
     total_travel_time = df['Trip Duration'].sum()
     print('Total travel time among users: ', total_travel_time)
 
-    # TO DO: display mean travel time
+    # display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
     print('Mean travel time among users: ', mean_travel_time)
 
@@ -169,14 +169,14 @@ def user_stats(df, city):
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-    # TO DO: Display counts of user types
+    # Display counts of user types
     print('Counts of each user type:\n', df['User Type'].value_counts())
 
-    # TO DO: Display counts of gender for only chicago and NYC
+    # Display counts of gender for only chicago and NYC
     if city != 'washington':
         print('\nCounts of gender among subscribers \n', df['Gender'].value_counts())
 
-    # TO DO: Display earliest, most recent, and most common year of birth
+    # Display earliest, most recent, and most common year of birth
     # makes a sorted (ascending value) pd series based on users that have birth date values
         birth_year = (df['Birth Year'].sort_values()).dropna()
         earliest_year = birth_year.min()
@@ -191,10 +191,10 @@ def user_stats(df, city):
 
 def raw_data_prompt(city):
     print('-'*40)
-    #initialize x variable and total size of raw data to avoid overshooting it
+    # initialize x variable and total size of raw data to avoid overshooting it
     x = 5
     total_rows = pd.read_csv(CITY_DATA[city]).shape[0]
-    #ask the user if they would like to see raw data, if answer is yes proceed until all data is explored
+    # ask the user if they would like to see raw data, if answer is yes proceed until all data is explored
     while True:
         response = input('Would you like to see 5 lines of raw data? -type "yes" if yes or enter anything else to exit: ').lower()
         if response == 'yes':
@@ -226,6 +226,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
-
-                  
