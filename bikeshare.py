@@ -177,6 +177,7 @@ def trip_duration_stats(df):
     Returns:
     total_travel_time: total time travelled among all users
     mean_travel_time: average trip duration for all users
+    median_travel_time: median trip duration 
 
     """
 
@@ -190,6 +191,10 @@ def trip_duration_stats(df):
     # display mean travel time
     mean_travel_time = df['Trip Duration'].mean()
     print('Mean travel time among users: ', mean_travel_time)
+
+    # display median travel time
+    median_travel_time = df['Trip Duration'].median()
+    print('Median travel time among users: ', median_travel_time)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -272,7 +277,7 @@ def raw_data_prompt(city):
 
 def main():
     """Definition of main function"""
-    
+
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
