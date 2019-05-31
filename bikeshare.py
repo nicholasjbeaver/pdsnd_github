@@ -86,8 +86,19 @@ def load_data(city, month, day):
 
 
 def time_stats(df):
+    """
+    Calculates most common travel times.
+
+    Parameters:
+    df: the dataframe that is generated previously via user input/csv files
+
+    Returns:
+    most_common_month: most popular month in dataset based on mode
+    most_common_day: most popular day of week based on mode
+    most_common_hour: most popular rental hour based on mode
+
+    """
     months = ['January', 'February', 'March', 'April', 'May', 'June']
-    """Displays statistics on the most frequent times of travel."""
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -110,7 +121,18 @@ def time_stats(df):
 
 
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
+    """
+    Displays statistics for most popular stations and trips.
+
+    Parameters:
+    df: the dataframe that is generated previously via user input/csv files
+
+    Returns:
+    most_used_start: finds the most popular start station in the data based on mode
+    most_used_end: finds the most popular end - similar to start station
+    most_popular_combo: finds the most popular combination of start to end stations
+
+    """
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
@@ -146,7 +168,17 @@ def station_stats(df):
 
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
+    """
+    Displays statistics on trip duration.
+
+    Parameters:
+    df: the dataframe that is generated previously via user input/csv files
+
+    Returns:
+    total_travel_time: total time travelled among all users
+    mean_travel_time: average trip duration for all users
+
+    """
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
@@ -164,7 +196,20 @@ def trip_duration_stats(df):
 
 
 def user_stats(df, city):
-    """Displays statistics on bikeshare users."""
+    """
+    Displays user statistics and demographics.
+
+    Parameters:
+    df: the dataframe that is generated previously via user input/csv files
+    city: the city passed into the dataframe, determines whether data is available
+
+    Returns:
+    Counts of each user type
+    earliest_year: birth year of oldest user
+    most_recent_year: birth date of youngest user
+    most_common_year: most common birth year among users
+
+    """
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
@@ -190,13 +235,29 @@ def user_stats(df, city):
         print('Gender and birth year data not available for Washington\n')
 
 def raw_data_prompt(city):
+    """
+    Shows the raw dataframe to the user when s/he asks for it.
+
+    Data is shown 5 lines at a time. 5 more lines of data are shown every time the user answers 'yes'.
+    Will not show more data if the the row number is outside of the dataframe. Program breaks if user
+    inputs anything other than 'yes.'
+
+    Parameters:
+    df: the dataframe that is generated previously via user input/csv files
+
+    Returns:
+    most_used_start: finds the most popular start station in the data based on mode
+    most_used_end: finds the most popular end - similar to start station
+    most_popular_combo: finds the most popular combination of start to end stations
+
+    """
     print('-'*40)
     # initialize x variable and total size of raw data to avoid overshooting it
     x = 5
     total_rows = pd.read_csv(CITY_DATA[city]).shape[0]
     # ask the user if they would like to see raw data, if answer is yes proceed until all data is explored
     while True:
-        response = input('Would you like to see 5 lines of raw data? -type "yes" if yes or enter anything else to exit: ').lower()
+        response = input('Would you like to see 5 lines of raw data? -type "yes" if yes, or enter anything else to exit: ').lower()
         if response == 'yes':
             # read the csv file for the city chosen in the beginning of the prompt down x lines (defaults to 5, increases by 5 each time)
             print(pd.read_csv(CITY_DATA[city], nrows=x))
@@ -210,6 +271,8 @@ def raw_data_prompt(city):
 
 
 def main():
+    """Definition of main function"""
+    
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
